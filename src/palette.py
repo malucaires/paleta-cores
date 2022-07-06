@@ -1,5 +1,6 @@
 import io
 from PIL import Image
+from pathlib import Path
 import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib
@@ -16,6 +17,7 @@ def get(uploaded_image, n_clusters):
     model = KMeans(n_clusters, random_state=42).fit(x)
     cores = model.cluster_centers_.astype('uint8')[np.newaxis]
     cores_hex = [matplotlib.colors.to_hex(cor/255) for cor in cores[0]]
+    Path(uploaded_image.name).unlink()
     return cores, cores_hex
 
                         
